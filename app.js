@@ -1,8 +1,13 @@
 const express = require("express")
 const app = express()
+const port = 3000
+
+const db = require("./models")
+const Todo = db.Todo
 
 app.get("/todos", (req, res)  => {
-  res.send("get all todos")
+  return Todo.findAll()
+    .then((todos) => res.send({ todos }))
 })
 
 app.get("/todos/new", (req, res) => {
@@ -29,7 +34,6 @@ app.delete("/todos/:id", (res, req) => {
   res.send("delete todo")
 })
 
-const port = 3000
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`)
 })
