@@ -67,8 +67,10 @@ app.put("/todos/:id", (req, res) => {
     .then(() => res.redirect(`/todos/${id}`))
 })
 
-app.delete("/todos/:id", (res, req) => {
-  res.send("delete todo")
+app.delete("/todos/:id", (req, res) => {
+  const id = req.params.id
+  return Todo.destroy({where: {id}})
+    .then(() => res.redirect("/todos"))
 })
 
 app.listen(port, () => {
