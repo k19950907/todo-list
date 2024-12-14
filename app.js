@@ -19,8 +19,12 @@ app.set("views", "./views")
 app.use(express.urlencoded({extended: true}))
 app.use(methodOverride("_method"))
 
+if (process.env.NODE_ENV ==="development") {
+  require("dotenv").config()
+}
+
 app.use(session({
-  secret: "ThisIsSecret",
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false
 }))
